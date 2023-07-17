@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">DAM_Examen_Final_Luque</string>
+    <string name="text_titulo">REGISTRO DE DATOS</string>
+    <string name="text_subtitulo">FORMULARIO</string>
+
+    <string name="edittext_name">Nombres</string>
+    <string name="edittext_ape">Apellidos</string>
+    <string name="edittext_email">Email</string>
+    <string name="edittext_telefono">Telefono</string>
+    <string name="edittext_date">Fecha de Nacimiento</string>
+
+    <string name="buttom_register">REGISTRAR DATOS</string>
+    <string name="title_activity_notas">NotasActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+</resources>
