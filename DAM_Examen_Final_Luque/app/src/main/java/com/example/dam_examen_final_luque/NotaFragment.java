@@ -7,12 +7,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.dam_examen_final_luque.placeholder.PlaceholderContent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -22,7 +25,11 @@ public class NotaFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private int mColumnCount = 2;
+    private NotasInteractionListener mListener;
+    private List<Nota> notaList;
+    private MyNotaRecyclerViewAdapter adapterNotas;
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -62,10 +69,29 @@ public class NotaFragment extends Fragment {
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+                recyclerView.setLayoutManager(new StaggeredGridLayoutManager( mColumnCount, StaggeredGridLayoutManager.VERTICAL));
             }
-            recyclerView.setAdapter(new MyNotaRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            notaList = new ArrayList<>();
+            notaList.add(new Nota("UC4","Estudiar para la evaluación de la UC4 - Caso: Notas y Listas", true, android.R.color.holo_blue_light));
+            notaList.add(new Nota("Recordar", "He aparcado el coche en la calle República Argentina, no olvidarme en el parque",false, android.R.color.holo_green_light));
+            notaList.add(new Nota("cumpleaños (fiesta)","Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n", true, android.R.color.holo_orange_light));
+            adapterNotas = new MyNotaRecyclerViewAdapter(notaList, mListener);
+            recyclerView.setAdapter(adapterNotas);
         }
         return view;
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof NotasInteractionListener){
+            mListener = (NotasInteractionListener) context;
+        }else{
+            throw new RuntimeException(context.toString()
+                    + "Debe implementarse NotasInteractionListener");
+        }
+    }
+
+
 }
